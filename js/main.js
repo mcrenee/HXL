@@ -379,12 +379,35 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
-// 初始化
+// 初始化和调试
 // ==========================================
+console.log('main.js 文件开始加载');
+
+// 测试函数是否可用
+window.testJS = function() {
+    alert('JavaScript 功能正常！');
+    console.log('测试函数被调用');
+};
+
+// 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', () => {
-    // 设置默认签约日期为今天
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('signDate').value = today;
+    console.log('DOM 内容已加载');
     
-    console.log('超级加盟商投资决策平台已加载');
+    // 设置默认签约日期为今天
+    const signDateInput = document.getElementById('signDate');
+    if (signDateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        signDateInput.value = today;
+        console.log('签约日期已设置:', today);
+    }
+    
+    // 自动计算一次投资回报
+    calculateROI();
+    
+    console.log('✅ 超级加盟商投资决策平台已完全加载');
+    console.log('✅ calculateROI:', typeof calculateROI);
+    console.log('✅ calculateScore:', typeof calculateScore);
+    console.log('✅ generateContract:', typeof generateContract);
 });
+
+console.log('main.js 文件加载完成');
