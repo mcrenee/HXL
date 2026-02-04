@@ -14,7 +14,8 @@
             <nav>
                 <a href="#" class="brand">滴灌通投资</a>
                 <ul class="nav-menu">
-                    <li><a href="#report" class="active">投资报告</a></li>
+                    <li><a href="#overview">行业概览</a></li>
+                    <li><a href="#report">投资报告</a></li>
                     <li><a href="#calculator">投资计算器</a></li>
                     <li><a href="#screening">行业筛子</a></li>
                     <li><a href="#contract">协议设计</a></li>
@@ -27,25 +28,65 @@
     <main>
         <div class="container">
             
-            <!-- Industry Overview Stats -->
-            <section class="section">
+            <!-- Industry Overview -->
+            <section id="overview" class="section">
                 <h2 class="section-title">超级加盟商行业概览</h2>
+                <p class="section-description">2025年中国连锁加盟市场持续增长，呈现专业化、规模化发展趋势</p>
+                
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-value" id="totalStores">120+</div>
-                        <div class="stat-label">运营门店</div>
+                        <div class="stat-value">2.77万亿</div>
+                        <div class="stat-label">2025年市场规模（元）</div>
+                        <div class="stat-change">+4.8% YoY</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="annualReturn">18%</div>
-                        <div class="stat-label">年化收益率</div>
+                        <div class="stat-value">160万+</div>
+                        <div class="stat-label">2024年新开门店</div>
+                        <div class="stat-change">+26.4% YoY</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="paybackPeriod">15</div>
-                        <div class="stat-label">回本周期（月）</div>
+                        <div class="stat-value">49%</div>
+                        <div class="stat-label">餐饮连锁化率</div>
+                        <div class="stat-change">持续提升</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="grossMargin">70%</div>
-                        <div class="stat-label">毛利率</div>
+                        <div class="stat-value">15%+</div>
+                        <div class="stat-label">年复合增长率</div>
+                        <div class="stat-change">高速增长</div>
+                    </div>
+                </div>
+                
+                <div class="card mt-3">
+                    <h3 class="card-title">核心增长动力</h3>
+                    <div class="growth-drivers">
+                        <div class="driver-item">
+                            <div class="driver-number">01</div>
+                            <div class="driver-content">
+                                <h4>消费升级驱动</h4>
+                                <p>中产阶级扩大，对品质生活需求增加，推动品牌连锁发展</p>
+                            </div>
+                        </div>
+                        <div class="driver-item">
+                            <div class="driver-number">02</div>
+                            <div class="driver-content">
+                                <h4>高势能点位稀缺</h4>
+                                <p>机场、高铁站等核心商业点位供不应求，资源价值凸显</p>
+                            </div>
+                        </div>
+                        <div class="driver-item">
+                            <div class="driver-number">03</div>
+                            <div class="driver-content">
+                                <h4>专业化运营需求</h4>
+                                <p>AI技术+专业团队，提升运营效率和风险控制能力</p>
+                            </div>
+                        </div>
+                        <div class="driver-item">
+                            <div class="driver-number">04</div>
+                            <div class="driver-content">
+                                <h4>资本市场活跃</h4>
+                                <p>RBF模式创新，吸引更多机构投资者进入加盟赛道</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -53,74 +94,39 @@
             <!-- Investment Report Generator -->
             <section id="report" class="section">
                 <h2 class="section-title">投资报告生成</h2>
-                <p class="section-description">填写基本信息，系统将自动生成完整的投资分析报告</p>
+                <p class="section-description">上传企业资料，AI智能分析生成投资报告大纲</p>
                 
                 <div class="card">
-                    <h3 class="card-title">项目基本信息</h3>
-                    <form id="reportForm">
-                        <div class="form-group">
-                            <label for="projectName">项目名称</label>
-                            <input type="text" id="projectName" placeholder="例如：肆瓦-浦东机场T2项目">
+                    <div class="upload-section">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">📁</div>
+                            <div class="upload-text">
+                                <p><strong>拖拽文件到此处或点击上传</strong></p>
+                                <p class="text-secondary">支持 PDF、Word、PPT 格式，单个文件最大 50MB</p>
+                            </div>
+                            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx" multiple style="display: none;">
+                            <button type="button" class="btn-secondary mt-2" onclick="document.getElementById('fileInput').click()">选择文件</button>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="companyName">企业名称</label>
-                            <input type="text" id="companyName" placeholder="例如：肆瓦商业">
-                        </div>
+                        <div id="fileList" class="file-list"></div>
                         
-                        <div class="form-group">
-                            <label for="location">项目点位</label>
-                            <input type="text" id="location" placeholder="例如：上海浦东机场T2航站楼">
+                        <div class="button-group mt-3">
+                            <button type="button" onclick="generateAIReport()" id="generateBtn" disabled>生成投资报告</button>
+                            <button type="button" class="btn-secondary" onclick="exportReportPPT()" id="exportPPTBtn" disabled>导出PPT</button>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="area">项目面积（平方米）</label>
-                            <input type="number" id="area" placeholder="374">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="brandCount">品牌数量</label>
-                            <input type="number" id="brandCount" placeholder="5">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="reportInvestment">投资金额（万元）</label>
-                            <input type="number" id="reportInvestment" placeholder="400">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="reportAnnualRate">年化收益率（%）</label>
-                            <input type="number" id="reportAnnualRate" value="18">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="reportShareRatio">分成比例（%）</label>
-                            <input type="number" id="reportShareRatio" value="35">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="monthlyGrossProfit">月毛利（万元）</label>
-                            <input type="number" id="monthlyGrossProfit" placeholder="54.8">
-                        </div>
-                        
-                        <div class="button-group">
-                            <button type="button" onclick="generateReport()">生成投资报告</button>
-                            <button type="button" class="btn-secondary" onclick="exportReport()">导出报告</button>
-                            <button type="button" class="btn-secondary" onclick="resetReport()">重置</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 
-                <!-- Report Output -->
-                <div id="reportOutput" class="report-output hidden">
+                <!-- AI Report Output -->
+                <div id="aiReportOutput" class="report-output hidden">
                     <div class="report-header">
                         <div class="report-logo">滴灌通投资</div>
-                        <div class="report-subtitle">超级加盟商投资分析报告</div>
-                        <div class="report-subtitle" id="reportDate"></div>
+                        <div class="report-subtitle">投资分析报告大纲</div>
+                        <div class="report-subtitle" id="aiReportDate"></div>
                     </div>
                     
-                    <div class="report-body" id="reportContent">
-                        <!-- Report content will be generated here -->
+                    <div class="report-body" id="aiReportContent">
+                        <!-- AI generated report outline will be here -->
                     </div>
                 </div>
             </section>
@@ -128,61 +134,55 @@
             <!-- Investment Calculator -->
             <section id="calculator" class="section">
                 <h2 class="section-title">投资回报计算器</h2>
-                <p class="section-description">计算投资回报周期和预期收益</p>
+                <p class="section-description">输入投资参数，实时计算回报指标</p>
                 
                 <div class="card">
                     <form id="calculatorForm">
-                        <div class="form-group">
-                            <label for="investAmount">投资金额（万元）</label>
-                            <input type="number" id="investAmount" placeholder="400">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="investAmount">投资金额（万元）</label>
+                                <input type="number" id="investAmount" placeholder="400" value="400">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="monthlyRevenue">月营业额（万元）</label>
+                                <input type="number" id="monthlyRevenue" placeholder="86.5" value="86.5">
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="annualRate">年化收益率（%）</label>
-                            <input type="number" id="annualRate" value="18">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="shareRatio">分成比例（%）</label>
-                            <input type="number" id="shareRatio" value="35">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="monthlyRevenue">月营业额（万元）</label>
-                            <input type="number" id="monthlyRevenue" placeholder="86.5">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="duration">联营期限（月）</label>
-                            <input type="number" id="duration" value="18">
-                        </div>
-                        
-                        <div class="button-group">
-                            <button type="button" onclick="calculateROI()">计算回报</button>
-                            <button type="button" class="btn-secondary" onclick="resetCalculator()">重置</button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shareRatio">分成比例（%）</label>
+                                <input type="number" id="shareRatio" placeholder="35" value="35">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="annualRate">预期收益率（静态年化 %）</label>
+                                <input type="number" id="annualRate" placeholder="18" value="18">
+                            </div>
                         </div>
                     </form>
                 </div>
                 
-                <!-- Calculator Results -->
-                <div id="calculatorResults" class="result-card hidden">
+                <!-- Calculator Results (Always Visible) -->
+                <div class="result-card">
                     <h3 class="result-title">投资回报分析</h3>
                     <div class="result-grid">
                         <div class="result-item">
+                            <div class="result-item-label">月均分成</div>
+                            <div class="result-item-value" id="monthlyShare">30.28万</div>
+                        </div>
+                        <div class="result-item">
                             <div class="result-item-label">回本周期</div>
-                            <div class="result-item-value highlight" id="paybackMonths">-</div>
+                            <div class="result-item-value highlight" id="paybackMonths">16个月</div>
                         </div>
                         <div class="result-item">
-                            <div class="result-item-label">总收益（万元）</div>
-                            <div class="result-item-value" id="totalReturn">-</div>
+                            <div class="result-item-label">预计联营期限</div>
+                            <div class="result-item-value" id="duration">18个月</div>
                         </div>
                         <div class="result-item">
-                            <div class="result-item-label">预期利润（万元）</div>
-                            <div class="result-item-value highlight" id="expectedProfit">-</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-item-label">月均分成（万元）</div>
-                            <div class="result-item-value" id="monthlyShare">-</div>
+                            <div class="result-item-label">总收益预测</div>
+                            <div class="result-item-value highlight" id="totalReturn">545.04万</div>
                         </div>
                     </div>
                 </div>
@@ -191,10 +191,24 @@
             <!-- Enterprise Screening -->
             <section id="screening" class="section">
                 <h2 class="section-title">被投企业筛选评估</h2>
-                <p class="section-description">基于8项核心标准进行智能评分</p>
+                <p class="section-description">上传企业资料，AI智能评估并生成评分</p>
                 
                 <div class="card">
-                    <h3 class="card-title">企业基本信息</h3>
+                    <div class="upload-section">
+                        <div class="upload-area-small" id="screeningUploadArea">
+                            <div class="upload-icon-small">📄</div>
+                            <div class="upload-text-small">
+                                <p><strong>上传企业资料</strong></p>
+                                <p class="text-secondary">BP、财务报表、运营数据等</p>
+                            </div>
+                            <input type="file" id="screeningFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx" multiple style="display: none;">
+                            <button type="button" class="btn-secondary" onclick="document.getElementById('screeningFileInput').click()">选择文件</button>
+                        </div>
+                        
+                        <div id="screeningFileList" class="file-list"></div>
+                    </div>
+                    
+                    <h3 class="card-title mt-3">企业基本信息</h3>
                     <form id="screeningForm">
                         <div class="form-group">
                             <label for="enterpriseName">企业名称</label>
@@ -284,83 +298,123 @@
                                 <option value="5">较弱 - 5分</option>
                             </select>
                         </div>
-                        
-                        <div class="button-group">
-                            <button type="button" onclick="calculateScore()">计算评分</button>
-                            <button type="button" class="btn-secondary" onclick="resetScreening()">重置</button>
-                        </div>
                     </form>
                 </div>
                 
-                <!-- Screening Results -->
-                <div id="screeningResults" class="result-card hidden">
+                <!-- Screening Results (Always Visible) -->
+                <div class="result-card">
                     <div class="score-display">
-                        <div class="score-circle" id="totalScore">0</div>
-                        <div class="score-rating" id="scoreRating">待评估</div>
+                        <div class="score-circle">
+                            <div class="score-number" id="totalScore">200</div>
+                            <div class="score-max">/200</div>
+                        </div>
+                        <div class="score-rating excellent" id="scoreRating">优秀</div>
                     </div>
                     
                     <h3 class="result-title">评估结果</h3>
-                    <div id="scoreRecommendation" class="report-content"></div>
+                    <div id="scoreRecommendation" class="report-content">
+                        综合评分200分，属于优秀级别。强烈推荐投资。
+                    </div>
                     
                     <h3 class="result-title mt-3">风控要点</h3>
-                    <div id="riskControl" class="report-content"></div>
+                    <div id="riskControl" class="report-content">
+                        企业具备优质点位获取能力，历史履约记录良好。建议重点关注招商进度、数据报送及时性和分成款项准时支付情况。
+                    </div>
                 </div>
             </section>
 
-            <!-- Contract Generator -->
+            <!-- Contract Design -->
             <section id="contract" class="section">
-                <h2 class="section-title">投资合同生成</h2>
-                <p class="section-description">自动生成标准化投资合同</p>
+                <h2 class="section-title">协议设计</h2>
+                <p class="section-description">投资协议关键条款一览</p>
                 
                 <div class="card">
-                    <h3 class="card-title">合同信息</h3>
+                    <h3 class="card-title">基本信息</h3>
                     <form id="contractForm">
-                        <div class="form-group">
-                            <label for="partyA">甲方（投资方）</label>
-                            <input type="text" id="partyA" placeholder="滴灌通投资（海南）有限公司">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="partyA">甲方（投资方）</label>
+                                <input type="text" id="partyA" value="滴灌通投资（海南）有限公司">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="partyB">乙方（运营方）</label>
+                                <input type="text" id="partyB" placeholder="企业名称">
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="partyB">乙方（运营方）</label>
-                            <input type="text" id="partyB" placeholder="企业名称">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contractLocation">项目点位</label>
+                                <input type="text" id="contractLocation" placeholder="项目地址">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contractInvestment">投资金额（万元）</label>
+                                <input type="number" id="contractInvestment" placeholder="400">
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="contractLocation">项目点位</label>
-                            <input type="text" id="contractLocation" placeholder="项目地址">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contractInvestment">投资金额（万元）</label>
-                            <input type="number" id="contractInvestment" placeholder="400">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contractAnnualRate">年化收益率（%）</label>
-                            <input type="number" id="contractAnnualRate" value="18">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contractShareRatio">分成比例（%）</label>
-                            <input type="number" id="contractShareRatio" value="35">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contractAnnualRate">年化收益率（%）</label>
+                                <input type="number" id="contractAnnualRate" value="18">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contractShareRatio">分成比例（%）</label>
+                                <input type="number" id="contractShareRatio" value="35">
+                            </div>
                         </div>
                         
                         <div class="form-group">
                             <label for="contractDuration">联营期限（月）</label>
                             <input type="number" id="contractDuration" value="18">
                         </div>
-                        
-                        <div class="button-group">
-                            <button type="button" onclick="generateContract()">生成合同</button>
-                            <button type="button" class="btn-secondary" onclick="downloadContract()">下载合同</button>
-                            <button type="button" class="btn-secondary" onclick="resetContract()">重置</button>
-                        </div>
                     </form>
                 </div>
                 
-                <!-- Contract Preview -->
-                <div id="contractPreview" class="contract-preview hidden">
-                    <!-- Contract content will be generated here -->
+                <!-- Contract Preview (Always Visible) -->
+                <div class="contract-terms">
+                    <h3 class="terms-title">关键条款</h3>
+                    
+                    <div class="terms-grid">
+                        <div class="term-card">
+                            <div class="term-number">01</div>
+                            <h4 class="term-title">投资方式</h4>
+                            <p class="term-content" id="termInvestment">甲方以现金方式投资人民币<strong>400万元</strong>，用于项目装修、设备采购、品牌加盟费等</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <div class="term-number">02</div>
+                            <h4 class="term-title">收益分配</h4>
+                            <p class="term-content" id="termShare">甲方获得项目营业额的<strong>35%</strong>作为投资回报，年化收益率<strong>18%</strong></p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <div class="term-number">03</div>
+                            <h4 class="term-title">封顶机制</h4>
+                            <p class="term-content" id="termCap">甲方累计分成达到<strong>472万元</strong>（投资本金×1.18）时，投资关系终止</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <div class="term-number">04</div>
+                            <h4 class="term-title">数据报送</h4>
+                            <p class="term-content">乙方每月1号前报送营业数据，包括营业额明细、品牌入驻、客流量、费用支出</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <div class="term-number">05</div>
+                            <h4 class="term-title">支付条款</h4>
+                            <p class="term-content">乙方每月1号前支付分成款项，逾期按0.5%/日支付违约金</p>
+                        </div>
+                        
+                        <div class="term-card">
+                            <div class="term-number">06</div>
+                            <h4 class="term-title">退出机制</h4>
+                            <p class="term-content" id="termExit">联营期<strong>18个月</strong>，到期或达封顶金额时终止。提前退出需提前通知并返还相应款项</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -373,6 +427,11 @@
             <p>&copy; 2026 滴灌通投资（海南）有限公司 | 超级加盟商投资决策平台</p>
         </div>
     </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">
+        <span>↑</span>
+    </button>
 
     <script src="js/main.js"></script>
 </body>
