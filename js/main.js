@@ -356,7 +356,11 @@ function initNavigation() {
 // 协议文本生成和复制
 // ==========================================
 
-function finalizeAndCopy() {
+// 全局变量存储生成的协议文本
+let generatedContractText = '';
+
+// 生成协议预览
+function generatePreview() {
     // 获取所有输入值
     const partyA = document.getElementById('partyA').value || '【甲方名称】';
     const partyB = document.getElementById('partyB').value || '【乙方名称】';
@@ -371,8 +375,7 @@ function finalizeAndCopy() {
     const paymentMode = document.getElementById('paymentMode').value || '【选择方式】';
     
     // 生成文本版本
-    const textVersion = `
-投资协议关键条款
+    generatedContractText = `投资协议关键条款
 
 基本信息：
 • 甲方（投资方）：${partyA}
@@ -397,23 +400,62 @@ function finalizeAndCopy() {
 按照${dataFrequency}，${dataMode}进行数据报送
 
 05 分成付款方式
-按照${paymentFrequency}，${paymentMode}进行分成打款
-`.trim();
+按照${paymentFrequency}，${paymentMode}进行分成打款`;
     
-    // 复制到剪贴板
-    navigator.clipboard.writeText(textVersion).then(() => {
+    // 显示预览
+    document.getElementById('previewContent').textContent = generatedContractText;
+    document.getElementById('contractPreview').classList.remove('hidden');
+    
+    // 启用复制按钮
+    const copyButton = document.getElementById('copyButton');
+    copyButton.disabled = false;
+    copyButton.style.opacity = '1';
+    
+    // 滚动到预览区域
+    document.getElementById('contractPreview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // 显示提示
+    const statusEl = document.getElementById('copyStatus');
+    statusEl.textContent = '✅ 预览已生成，可以复制文本';
+    statusEl.style.color = '#00A3E0';
+    
+    setTimeout(() => {
+        statusEl.textContent = '';
+    }, 3000);
+    
+    console.log('✅ 协议预览已生成');
+}
+
+// 复制到剪贴板
+function copyToClipboard() {
+    if (!generatedContractText) {
+        alert('请先生成预览！');
+        return;
+    }
+    
+    navigator.clipboard.writeText(generatedContractText).then(() => {
         const statusEl = document.getElementById('copyStatus');
         statusEl.textContent = '✅ 已复制到剪贴板！';
-        statusEl.style.color = '#00A3E0';
+        statusEl.style.color = '#10B981';
         
         // 3秒后清除提示
         setTimeout(() => {
             statusEl.textContent = '';
         }, 3000);
+        
+        console.log('✅ 文本已复制到剪贴板');
     }).catch(err => {
         const statusEl = document.getElementById('copyStatus');
         statusEl.textContent = '❌ 复制失败，请手动复制';
         statusEl.style.color = '#DC2626';
         console.error('复制失败:', err);
     });
+}
+
+// 保留旧函数以保持兼容性（如果有其他地方调用）
+function finalizeAndCopy() {
+    generatePreview();
+    setTimeout(() => {
+        copyToClipboard();
+    }, 500);
 }

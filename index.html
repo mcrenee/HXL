@@ -452,13 +452,27 @@
                         </div>
                     </div>
                     
-                    <!-- 生成并复制按钮 -->
+                    <!-- 操作按钮 -->
                     <div style="margin-top: 2rem; text-align: center;">
-                        <button onclick="finalizeAndCopy()" style="padding: 0.875rem 2rem; background: #003B5C; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        <button onclick="generatePreview()" style="padding: 0.875rem 2rem; background: #00A3E0; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-right: 1rem;">
+                            <i class="fas fa-eye" style="margin-right: 0.5rem;"></i>
+                            生成预览
+                        </button>
+                        <button id="copyButton" onclick="copyToClipboard()" style="padding: 0.875rem 2rem; background: #003B5C; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; opacity: 0.5;" disabled>
                             <i class="fas fa-copy" style="margin-right: 0.5rem;"></i>
-                            生成并复制文本版本
+                            复制文本
                         </button>
                         <p id="copyStatus" style="margin-top: 0.75rem; color: #00A3E0; font-weight: 600; min-height: 1.5rem;"></p>
+                    </div>
+                    
+                    <!-- 预览区域 -->
+                    <div id="contractPreview" class="contract-preview hidden" style="margin-top: 2rem; padding: 2rem; background: #F8F9FA; border: 2px solid #E5E7EB; border-radius: 8px;">
+                        <h4 style="margin-bottom: 1rem; color: #003B5C; font-size: 1.25rem; font-weight: 600;">
+                            <i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i>
+                            协议文本预览
+                        </h4>
+                        <pre id="previewContent" style="white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.8; color: #1F2937; background: white; padding: 1.5rem; border-radius: 6px; border: 1px solid #E5E7EB; max-height: 600px; overflow-y: auto;">
+                        </pre>
                     </div>
                 </div>
             </section>

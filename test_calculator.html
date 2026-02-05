@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资计算器测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .test-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+        button { background: #003B5C; color: white; padding: 12px 30px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-right: 10px; }
+        button:hover { background: #00A3E0; }
+        .result-box { margin-top: 30px; padding: 20px; background: #f0f9ff; border-left: 4px solid #00A3E0; border-radius: 4px; }
+        .result-item { margin: 10px 0; font-size: 18px; }
+        .highlight { color: #00A3E0; font-weight: bold; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>投资计算器测试页面</h1>
+        
+        <div class="form-group">
+            <label>投资金额（万元）</label>
+            <input type="number" id="investAmount" placeholder="100">
+        </div>
+        
+        <div class="form-group">
+            <label>月营业额（万元）</label>
+            <input type="number" id="monthlyRevenue" placeholder="30">
+        </div>
+        
+        <div class="form-group">
+            <label>分成比例（%）</label>
+            <input type="number" id="shareRatio" placeholder="10">
+        </div>
+        
+        <div class="form-group">
+            <label>预期收益率（静态年化 %）</label>
+            <input type="number" id="annualRate" placeholder="15">
+        </div>
+        
+        <div class="form-group">
+            <label>起投时间 - 年份</label>
+            <select id="startYear"></select>
+        </div>
+        
+        <div class="form-group">
+            <label>起投时间 - 月份</label>
+            <select id="startMonth">
+                <option value="01">1月</option>
+                <option value="02">2月</option>
+                <option value="03">3月</option>
+                <option value="04">4月</option>
+                <option value="05">5月</option>
+                <option value="06">6月</option>
+                <option value="07">7月</option>
+                <option value="08">8月</option>
+                <option value="09">9月</option>
+                <option value="10">10月</option>
+                <option value="11">11月</option>
+                <option value="12">12月</option>
+            </select>
+        </div>
+        
+        <button onclick="calculateROI()">计算回报</button>
+        <button onclick="resetForm()">重置</button>
+        
+        <div id="results" class="result-box hidden">
+            <h3>计算结果</h3>
+            <div class="result-item">预计封顶期限：<span class="highlight" id="durationDays">-</span></div>
+            <div class="result-item">预计封顶时间：<span class="highlight" id="endDate">-</span></div>
+            <div class="result-item">预计封顶金额：<span class="highlight" id="cappedAmount">-</span></div>
+            <p style="margin-top: 20px; color: #666; font-style: italic;">备注：按日平息进行封顶计算</p>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化年份选择器
+        function initYearSelector() {
+            const yearSelect = document.getElementById('startYear');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year <= currentYear + 10; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year + '年';
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        // 计算ROI
+        function calculateROI() {
+            const investAmount = parseFloat(document.getElementById('investAmount').value);
+            const monthlyRevenue = parseFloat(document.getElementById('monthlyRevenue').value);
+            const shareRatio = parseFloat(document.getElementById('shareRatio').value);
+            const annualRate = parseFloat(document.getElementById('annualRate').value);
+            const startYear = document.getElementById('startYear').value;
+            const startMonth = document.getElementById('startMonth').value;
+            
+            if (!investAmount || !monthlyRevenue || !shareRatio || !annualRate) {
+                alert('请填写所有必填信息');
+                return;
+            }
+            
+            if (investAmount <= 0 || monthlyRevenue <= 0 || shareRatio <= 0 || annualRate <= 0) {
+                alert('请输入正确的数值');
+                return;
+            }
+            
+            if (!startYear || !startMonth) {
+                alert('请选择起投时间（年份和月份）');
+                return;
+            }
+            
+            const I = investAmount;
+            const M = monthlyRevenue;
+            const R = shareRatio;
+            const A = annualRate;
+            
+            // 计算预计封顶期限（天）
+            const denominator = (M * R / 3000) - (I * A / 36000);
+            
+            if (denominator <= 0) {
+                alert('无法计算：月分成收入不足以覆盖投资收益要求，请调整参数');
+                return;
+            }
+            
+            const durationDays = I / denominator;
+            
+            // 预计封顶金额
+            const cappedAmount = I * (1 + (A / 100 / 360) * durationDays);
+            
+            // 计算预计封顶时间
+            const startDate = `${startYear}-${startMonth}`;
+            const start = new Date(startDate + '-01');
+            const end = new Date(start);
+            end.setDate(end.getDate() + Math.ceil(durationDays));
+            
+            const endYear = end.getFullYear();
+            const endMonth = (end.getMonth() + 1).toString().padStart(2, '0');
+            const endDateString = `${endYear}年${endMonth}月`;
+            
+            // 显示结果
+            document.getElementById('durationDays').textContent = Math.ceil(durationDays) + '天';
+            document.getElementById('endDate').textContent = endDateString;
+            document.getElementById('cappedAmount').textContent = cappedAmount.toFixed(2) + '万';
+            
+            console.log('✅ 计算完成:', {
+                预计封顶期限: Math.ceil(durationDays) + '天',
+                预计封顶时间: endDateString,
+                预计封顶金额: cappedAmount.toFixed(2) + '万'
+            });
+            
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 重置表单
+        function resetForm() {
+            document.getElementById('investAmount').value = '';
+            document.getElementById('monthlyRevenue').value = '';
+            document.getElementById('shareRatio').value = '';
+            document.getElementById('annualRate').value = '';
+            document.getElementById('startYear').selectedIndex = 0;
+            document.getElementById('startMonth').selectedIndex = 0;
+            document.getElementById('results').classList.add('hidden');
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            initYearSelector();
+            console.log('✅ 测试页面已加载');
+        });
+    </script>
+</body>
+</html>
