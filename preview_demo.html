@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协议预览功能演示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #003B5C;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .button-group {
+            margin-top: 30px;
+            text-align: center;
+        }
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 163, 224, 0.3);
+        }
+        .btn-preview {
+            background: #00A3E0;
+            color: white;
+        }
+        .btn-copy {
+            background: #003B5C;
+            color: white;
+            opacity: 0.5;
+        }
+        .btn-copy:not(:disabled) {
+            opacity: 1;
+        }
+        button:disabled {
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 15px;
+            font-weight: 600;
+            min-height: 30px;
+        }
+        .preview-area {
+            margin-top: 30px;
+            padding: 25px;
+            background: #F8F9FA;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            display: none;
+        }
+        .preview-area.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        .preview-title {
+            color: #003B5C;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .preview-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #1F2937;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #E5E7EB;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .highlight {
+            background: #FEF3C7;
+            padding: 15px;
+            border-left: 4px solid #F59E0B;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-file-contract"></i> 协议预览功能演示</h1>
+        
+        <div class="highlight">
+            <strong>📌 操作说明：</strong><br>
+            1. 填写下方的协议信息<br>
+            2. 点击"生成预览"按钮 → 查看生成的协议文本<br>
+            3. 确认无误后，点击"复制文本"按钮 → 复制到剪贴板
+        </div>
+
+        <div class="form-group">
+            <label>甲方（投资方）</label>
+            <input type="text" id="partyA" placeholder="例如：滴灌通投资（海南）有限公司" value="滴灌通投资（海南）有限公司">
+        </div>
+
+        <div class="form-group">
+            <label>乙方（运营方）</label>
+            <input type="text" id="partyB" placeholder="例如：肆瓦商业" value="肆瓦商业">
+        </div>
+
+        <div class="form-group">
+            <label>投资金额（万元）</label>
+            <input type="number" id="investment" placeholder="例如：400" value="400">
+        </div>
+
+        <div class="form-group">
+            <label>资产用途</label>
+            <input type="text" id="assetScope" placeholder="例如：项目装修、设备采购、品牌加盟费" value="项目装修、设备采购、品牌加盟费">
+        </div>
+
+        <div class="form-group">
+            <label>年化收益率（%）</label>
+            <input type="number" id="annualRate" placeholder="例如：18" value="18">
+        </div>
+
+        <div class="form-group">
+            <label>分成比例（%）</label>
+            <input type="number" id="shareRatio" placeholder="例如：35" value="35">
+        </div>
+
+        <div class="form-group">
+            <label>数据传输频率</label>
+            <select id="dataFrequency">
+                <option value="每月" selected>每月</option>
+                <option value="每周">每周</option>
+                <option value="每日">每日</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>数据传输方式</label>
+            <select id="dataMode">
+                <option value="自动" selected>自动</option>
+                <option value="手动">手动</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>分成付款频率</label>
+            <select id="paymentFrequency">
+                <option value="每月" selected>每月</option>
+                <option value="每周">每周</option>
+                <option value="每日">每日</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>分成付款方式</label>
+            <select id="paymentMode">
+                <option value="自动" selected>自动</option>
+                <option value="手动">手动</option>
+            </select>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-preview" onclick="generatePreview()">
+                <i class="fas fa-eye"></i> 生成预览
+            </button>
+            <button id="copyButton" class="btn-copy" onclick="copyText()" disabled>
+                <i class="fas fa-copy"></i> 复制文本
+            </button>
+            <div id="status"></div>
+        </div>
+
+        <div id="previewArea" class="preview-area">
+            <div class="preview-title">
+                <i class="fas fa-file-alt"></i> 协议文本预览
+            </div>
+            <div id="previewContent" class="preview-content"></div>
+        </div>
+    </div>
+
+    <script>
+        let contractText = '';
+
+        function generatePreview() {
+            const partyA = document.getElementById('partyA').value || '【甲方名称】';
+            const partyB = document.getElementById('partyB').value || '【乙方名称】';
+            const investment = document.getElementById('investment').value || '100';
+            const assetScope = document.getElementById('assetScope').value || '【资产范围】';
+            const annualRate = document.getElementById('annualRate').value || '15';
+            const shareRatio = document.getElementById('shareRatio').value || '10';
+            const dataFrequency = document.getElementById('dataFrequency').value;
+            const dataMode = document.getElementById('dataMode').value;
+            const paymentFrequency = document.getElementById('paymentFrequency').value;
+            const paymentMode = document.getElementById('paymentMode').value;
+
+            contractText = `投资协议关键条款
+
+基本信息：
+• 甲方（投资方）：${partyA}
+• 乙方（运营方）：${partyB}
+• 收入分成资产范围：${assetScope}
+• 投资金额：${investment}万元
+• 年化收益率（静态年化）：${annualRate}%
+• 分成比例：${shareRatio}%
+
+关键条款：
+
+01 投资方式
+甲方${partyA}投资人民币${investment}万元，用于${assetScope}等
+
+02 收益分配
+甲方获得${partyB}（乙方）项目营业额的${shareRatio}%作为投资回报，年化收益率${annualRate}%
+
+03 封顶机制
+滴灌通累计实际取得的收入分成金额合计达到"联营资金金额×(1+${annualRate}%÷360×已联营天数)"金额（合称"分成终止触发事项"），达到封顶，收入分成终止
+
+04 数据传输方式
+按照${dataFrequency}，${dataMode}进行数据报送
+
+05 分成付款方式
+按照${paymentFrequency}，${paymentMode}进行分成打款`;
+
+            // 显示预览
+            document.getElementById('previewContent').textContent = contractText;
+            const previewArea = document.getElementById('previewArea');
+            previewArea.classList.add('show');
+            
+            // 启用复制按钮
+            document.getElementById('copyButton').disabled = false;
+            
+            // 滚动到预览区域
+            previewArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // 显示状态
+            const status = document.getElementById('status');
+            status.textContent = '✅ 预览已生成，可以复制文本';
+            status.style.color = '#00A3E0';
+            
+            setTimeout(() => {
+                status.textContent = '';
+            }, 3000);
+        }
+
+        function copyText() {
+            if (!contractText) {
+                alert('请先生成预览！');
+                return;
+            }
+
+            navigator.clipboard.writeText(contractText).then(() => {
+                const status = document.getElementById('status');
+                status.textContent = '✅ 已复制到剪贴板！';
+                status.style.color = '#10B981';
+                
+                setTimeout(() => {
+                    status.textContent = '';
+                }, 3000);
+            }).catch(err => {
+                const status = document.getElementById('status');
+                status.textContent = '❌ 复制失败，请手动复制';
+                status.style.color = '#DC2626';
+            });
+        }
+    </script>
+</body>
+</html>
