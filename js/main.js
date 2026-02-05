@@ -362,7 +362,6 @@ function generateAndCopy() {
     const partyB = document.getElementById('partyB').value || '【乙方名称】';
     const assetScope = document.getElementById('assetScope').value || '【资产范围】';
     const investment = document.getElementById('contractInvestment').value || '100';
-    const annualRate = document.getElementById('contractAnnualRate').value || '15';
     const shareRatio = document.getElementById('contractShareRatio').value || '10';
     const annualRateCap = document.getElementById('contractAnnualRateCap').value || '15';
     const dataFrequency = document.getElementById('dataFrequency').value || '【选择频率】';
@@ -378,7 +377,6 @@ function generateAndCopy() {
 • 乙方（运营方）：${partyB}
 • 收入分成资产范围：${assetScope}
 • 投资金额：${investment}万元
-• 年化收益率（静态年化）：${annualRate}%
 • 分成比例：${shareRatio}%
 
 关键条款：
@@ -387,7 +385,7 @@ function generateAndCopy() {
 甲方${partyA}投资人民币${investment}万元，用于${assetScope}等
 
 02 收益分配
-甲方获得${partyB}（乙方）项目营业额的${shareRatio}%作为投资回报，年化收益率${annualRate}%
+在分成期内，甲方获得${partyB}（乙方）项目营业额的${shareRatio}%
 
 03 封顶机制
 滴灌通累计实际取得的收入分成金额合计达到"联营资金金额×(1+${annualRateCap}%÷360×已联营天数)"金额（合称"分成终止触发事项"），达到封顶，收入分成终止
