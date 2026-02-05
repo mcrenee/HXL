@@ -169,10 +169,7 @@ function calculateROI() {
     document.getElementById('endDate').textContent = endDateString;
     document.getElementById('cappedAmount').textContent = cappedAmount.toFixed(2) + '万';
     
-    // 自动填充联营期限到协议设计（转换为月）
-    const durationMonths = Math.ceil(durationDays / 30);
-    document.getElementById('contractDuration').value = durationMonths;
-    console.log(`✅ 自动填充联营期限: ${durationMonths} 月（${Math.ceil(durationDays)} 天）`);
+    console.log(`✅ 计算完成 - 预计封顶期限: ${Math.ceil(durationDays)} 天, 封顶金额: ${cappedAmount.toFixed(2)} 万元, 封顶时间: ${endDateString}`);
     
     document.getElementById('calculatorResults').classList.remove('hidden');
     document.getElementById('calculatorResults').scrollIntoView({ behavior: 'smooth' });
