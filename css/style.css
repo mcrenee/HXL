@@ -1218,19 +1218,19 @@ button:has(.fa-copy):hover {
 
 .preview-header {
     background: white;
-    padding: 1.25rem 1.5rem;
+    padding: 0.75rem 1.25rem;
     border-radius: 10px 10px 0 0;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     color: #003B5C;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     border-bottom: 2px solid #E5E7EB;
 }
 
 .preview-header i {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #667eea;
 }
 
