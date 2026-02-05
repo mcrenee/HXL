@@ -37,36 +37,31 @@ function calculateROI() {
     }
     
     // 新计算逻辑（基于日息）
-    // 公式：投资金额 × (1 + 预期收益率/100/360×预计联营期限×30) = 月营业额 × 预计联营期限 × 分成比例/100
-    // 注：预计联营期限内部计算单位为月，输出转换为天
+    // 公式：投资金额 × (1 + 预期收益率/100/360×预计联营期限) = 月营业额/30 × 预计联营期限 × 分成比例/100
+    // 注：预计联营期限单位为天
     
     const I = investAmount;
     const M = monthlyRevenue;
     const R = shareRatio;
     const A = annualRate;
     
-    // 1. 计算预计联营期限（月）
-    // 公式推导：T = I / (M×R/100 - I×A/1200)
-    const denominator = (M * R / 100) - (I * A / 1200);
+    // 1. 计算预计联营期限（天）
+    // 公式推导：D = I / (M×R/3000 - I×A/36000)
+    const denominator = (M * R / 3000) - (I * A / 36000);
     
     if (denominator <= 0) {
         alert('无法计算：月分成收入不足以覆盖投资收益要求，请调整参数');
         return;
     }
     
-    const durationMonths = I / denominator;
-    const durationDays = durationMonths * 30; // 转换为天
+    const durationDays = I / denominator;
     
-    // 2. 月均分成额 = 月营业额 × (分成比例 / 100)
-    const monthlyShare = M * (R / 100);
+    // 2. 预计封顶金额 = 投资金额 × (1 + 预期收益率/100/360×预计联营期限)
+    const cappedAmount = I * (1 + (A / 100 / 360) * durationDays);
     
-    // 3. 封顶金额 = 投资金额 × (1 + 预期收益率/100/360×预计联营期限×30)
-    const cappedAmount = I * (1 + (A / 100 / 360) * durationMonths * 30);
-    
-    // 显示结果
-    document.getElementById('monthlyShare').textContent = monthlyShare.toFixed(2) + '万';
-    document.getElementById('cappedAmount').textContent = cappedAmount.toFixed(2) + '万';
+    // 显示结果（只显示两个指标）
     document.getElementById('durationDays').textContent = Math.ceil(durationDays) + '天';
+    document.getElementById('cappedAmount').textContent = cappedAmount.toFixed(2) + '万';
     
     document.getElementById('calculatorResults').classList.remove('hidden');
     document.getElementById('calculatorResults').scrollIntoView({ behavior: 'smooth' });

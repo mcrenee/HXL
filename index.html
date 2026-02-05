@@ -130,19 +130,15 @@
                 
                 <!-- Calculator Results -->
                 <div id="calculatorResults" class="result-card hidden">
-                    <h3 class="result-title">投资回报分析</h3>
+                    <h3 class="result-title">投资回报计算输出</h3>
                     <div class="result-grid">
                         <div class="result-item">
-                            <div class="result-item-label">预计月分成金额（万元）</div>
-                            <div class="result-item-value" id="monthlyShare">-</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-item-label">封顶金额（万元）</div>
-                            <div class="result-item-value highlight" id="cappedAmount">-</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-item-label">预计联营期限（天）</div>
+                            <div class="result-item-label">预计联营期限</div>
                             <div class="result-item-value highlight" id="durationDays">-</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-item-label">预计封顶金额</div>
+                            <div class="result-item-value highlight" id="cappedAmount">-</div>
                         </div>
                     </div>
                     
@@ -150,18 +146,15 @@
                         <h4 class="logic-title">计算逻辑</h4>
                         <div class="logic-content">
                             <p><strong>核心公式：</strong></p>
-                            <p>投资金额 × (1 + 预期收益率/100/360 × 预计联营期限×30) = 月营业额 × 预计联营期限 × 分成比例/100</p>
+                            <p>投资金额 × (1 + 预期收益率/100/360 × 预计联营期限) = 月营业额/30 × 预计联营期限 × 分成比例/100</p>
                             
-                            <p class="mt-2"><strong>1. 预计联营期限（月）</strong></p>
-                            <p>求解得：预计联营期限(月) = 投资金额 / (月营业额 × 分成比例/100 - 投资金额 × 预期收益率/1200)</p>
-                            <p>转换为天：预计联营期限(天) = 预计联营期限(月) × 30</p>
+                            <p class="mt-2"><strong>1. 预计联营期限（天）</strong></p>
+                            <p>求解得：预计联营期限 = 投资金额 / (月营业额 × 分成比例/3000 - 投资金额 × 预期收益率/36000)</p>
                             
-                            <p class="mt-2"><strong>2. 预计月分成金额</strong> = 月营业额 × (分成比例 / 100)</p>
-                            
-                            <p class="mt-2"><strong>3. 封顶金额</strong> = 投资金额 × (1 + 预期收益率/100/360 × 预计联营期限×30)</p>
+                            <p class="mt-2"><strong>2. 预计封顶金额</strong> = 投资金额 × (1 + 预期收益率/100/360 × 预计联营期限)</p>
                             
                             <p class="mt-2 text-secondary" style="font-size: 0.85rem;">
-                                注：预期收益率按日息计算（年化/360天），内部计算单位为月，输出转换为天
+                                注：预期收益率按日息计算（年化/360天），预计联营期限单位为天
                             </p>
                         </div>
                     </div>
