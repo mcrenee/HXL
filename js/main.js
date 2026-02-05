@@ -63,17 +63,15 @@ function initAutoFillContract() {
         }
     });
     
-    // 监听年化收益率
+    // 监听年化收益率（只填充封顶机制）
     const annualRateInput = document.getElementById('annualRate');
-    const contractAnnualRateInput = document.getElementById('contractAnnualRate');
     const contractAnnualRateCapInput = document.getElementById('contractAnnualRateCap');
     
     annualRateInput.addEventListener('input', function() {
         const value = this.value;
         if (value) {
-            contractAnnualRateInput.value = value;
-            contractAnnualRateCapInput.value = value; // 同时填充封顶机制的预期收益率
-            console.log(`✅ 自动填充年化收益率: ${value}`);
+            contractAnnualRateCapInput.value = value; // 填充封顶机制的预期收益率
+            console.log(`✅ 自动填充封顶机制预期收益率: ${value}`);
         }
     });
     
