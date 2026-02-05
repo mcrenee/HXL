@@ -114,6 +114,13 @@
 ### 在线访问
 👉 **[立即体验](https://3000-i49d6wavuddl73vouz90d-0e616f0a.sandbox.novita.ai)**
 
+👉 **[GitHub Pages](https://ashley-worklab.github.io/SuperFranchise_SW/)** (正式部署版本)
+
+### 配置自定义域名
+📖 **[查看自定义域名配置指南](CUSTOM_DOMAIN_SETUP.md)**
+
+如果您想使用自己的域名（如 `www.yourdomain.com`），请参考详细配置指南。
+
 ### 本地运行
 ```bash
 # 克隆仓库
@@ -248,8 +255,14 @@ npx serve
 **项目状态**：✅ v2.0 已完成 | 🚀 持续优化中
 
 **GitHub**: https://github.com/ashley-worklab/SuperFranchise_SW  
-**在线预览**: https://3000-i49d6wavuddl73vouz90d-0e616f0a.sandbox.novita.ai
+**在线预览**: 
+- Sandbox: https://3000-i49d6wavuddl73vouz90d-0e616f0a.sandbox.novita.ai
+- GitHub Pages: https://ashley-worklab.github.io/SuperFranchise_SW/
+
+**相关文档**:
+- [GitHub Pages 部署指南](GITHUB_PAGES_SETUP.md)
+- [自定义域名配置指南](CUSTOM_DOMAIN_SETUP.md)
 
 ---
 
-**最后更新**：2026年2月4日
+**最后更新**：2026年2月5日
