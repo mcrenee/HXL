@@ -1204,34 +1204,72 @@ button:has(.fa-copy):hover {
    ========================================== */
 
 .contract-preview {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 3px;
     animation: slideIn 0.5s ease-out;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
 }
 
 .contract-preview.hidden {
     display: none;
 }
 
-#previewContent {
+.preview-header {
+    background: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #003B5C;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.preview-header i {
+    font-size: 1.3rem;
+    color: #667eea;
+}
+
+.preview-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 0 0 10px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.95rem;
+    line-height: 2;
+    color: #1F2937;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* 美化列表项 */
+.preview-content {
     scrollbar-width: thin;
-    scrollbar-color: #00A3E0 #F3F4F6;
+    scrollbar-color: #667eea #F3F4F6;
 }
 
-#previewContent::-webkit-scrollbar {
-    width: 8px;
+.preview-content::-webkit-scrollbar {
+    width: 10px;
 }
 
-#previewContent::-webkit-scrollbar-track {
+.preview-content::-webkit-scrollbar-track {
     background: #F3F4F6;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
-#previewContent::-webkit-scrollbar-thumb {
-    background: #00A3E0;
-    border-radius: 4px;
+.preview-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 5px;
 }
 
-#previewContent::-webkit-scrollbar-thumb:hover {
-    background: #0082B3;
+.preview-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #6a4193 100%);
 }
 
 /* 按钮悬停效果 */

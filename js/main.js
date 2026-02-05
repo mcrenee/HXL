@@ -374,7 +374,82 @@ function generatePreview() {
     const paymentFrequency = document.getElementById('paymentFrequency').value || '【选择频率】';
     const paymentMode = document.getElementById('paymentMode').value || '【选择方式】';
     
-    // 生成文本版本
+    // 生成格式化的HTML文本
+    const htmlContent = `
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid #667eea;">
+        <h2 style="color: #003B5C; font-size: 1.5rem; font-weight: 700; margin: 0;">投资协议关键条款</h2>
+    </div>
+
+    <div style="margin-bottom: 2rem; background: #F8F9FA; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #667eea;">
+        <h3 style="color: #667eea; font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem 0;">📋 基本信息</h3>
+        <div style="line-height: 2;">
+            <div style="margin-bottom: 0.5rem;">• <strong>甲方（投资方）：</strong>${partyA}</div>
+            <div style="margin-bottom: 0.5rem;">• <strong>乙方（运营方）：</strong>${partyB}</div>
+            <div style="margin-bottom: 0.5rem;">• <strong>收入分成资产范围：</strong>${assetScope}</div>
+            <div style="margin-bottom: 0.5rem;">• <strong>投资金额：</strong>${investment}万元</div>
+            <div style="margin-bottom: 0.5rem;">• <strong>年化收益率（静态年化）：</strong>${annualRate}%</div>
+            <div style="margin-bottom: 0.5rem;">• <strong>分成比例：</strong>${shareRatio}%</div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <h3 style="color: #667eea; font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem 0;">📑 关键条款</h3>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: #FEFCE8; border-radius: 8px; border-left: 4px solid #F59E0B;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: #F59E0B; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.75rem;">01</span>
+            <strong style="color: #78350F; font-size: 1.05rem;">投资方式</strong>
+        </div>
+        <div style="color: #78350F; line-height: 1.8; padding-left: 2.25rem;">
+            甲方<strong>${partyA}</strong>投资人民币<strong style="color: #F59E0B;">${investment}万元</strong>，用于<strong>${assetScope}</strong>等
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: #EFF6FF; border-radius: 8px; border-left: 4px solid #3B82F6;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: #3B82F6; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.75rem;">02</span>
+            <strong style="color: #1E3A8A; font-size: 1.05rem;">收益分配</strong>
+        </div>
+        <div style="color: #1E3A8A; line-height: 1.8; padding-left: 2.25rem;">
+            甲方获得<strong>${partyB}</strong>（乙方）项目营业额的<strong style="color: #3B82F6;">${shareRatio}%</strong>作为投资回报，年化收益率<strong style="color: #3B82F6;">${annualRate}%</strong>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: #F0FDF4; border-radius: 8px; border-left: 4px solid #10B981;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: #10B981; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.75rem;">03</span>
+            <strong style="color: #064E3B; font-size: 1.05rem;">封顶机制</strong>
+        </div>
+        <div style="color: #064E3B; line-height: 1.8; padding-left: 2.25rem;">
+            滴灌通累计实际取得的收入分成金额合计达到"联营资金金额×(1+<strong style="color: #10B981;">${annualRateCap}%</strong>÷360×已联营天数)"金额（合称"分成终止触发事项"），达到封顶，收入分成终止
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: #FEF2F2; border-radius: 8px; border-left: 4px solid #EF4444;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: #EF4444; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.75rem;">04</span>
+            <strong style="color: #7F1D1D; font-size: 1.05rem;">数据传输方式</strong>
+        </div>
+        <div style="color: #7F1D1D; line-height: 1.8; padding-left: 2.25rem;">
+            按照<strong style="color: #EF4444;">${dataFrequency}</strong>，<strong style="color: #EF4444;">${dataMode}</strong>进行数据报送
+        </div>
+    </div>
+
+    <div style="margin-bottom: 0; padding: 1.25rem; background: #F5F3FF; border-radius: 8px; border-left: 4px solid #8B5CF6;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: #8B5CF6; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.75rem;">05</span>
+            <strong style="color: #4C1D95; font-size: 1.05rem;">分成付款方式</strong>
+        </div>
+        <div style="color: #4C1D95; line-height: 1.8; padding-left: 2.25rem;">
+            按照<strong style="color: #8B5CF6;">${paymentFrequency}</strong>，<strong style="color: #8B5CF6;">${paymentMode}</strong>进行分成打款
+        </div>
+    </div>
+</div>
+    `.trim();
+    
+    // 生成纯文本版本（用于复制）
     generatedContractText = `投资协议关键条款
 
 基本信息：
@@ -402,8 +477,8 @@ function generatePreview() {
 05 分成付款方式
 按照${paymentFrequency}，${paymentMode}进行分成打款`;
     
-    // 显示预览
-    document.getElementById('previewContent').textContent = generatedContractText;
+    // 显示预览（使用HTML格式）
+    document.getElementById('previewContent').innerHTML = htmlContent;
     document.getElementById('contractPreview').classList.remove('hidden');
     
     // 启用复制按钮
