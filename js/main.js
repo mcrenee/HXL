@@ -105,6 +105,16 @@ function calculateROI() {
 function resetCalculator() {
     document.getElementById('calculatorForm').reset();
     document.getElementById('calculatorResults').classList.add('hidden');
+    document.getElementById('calculationLogic').classList.add('hidden');
+}
+
+// ==========================================
+// 切换计算逻辑显示
+// ==========================================
+
+function toggleCalculationLogic() {
+    const logicDiv = document.getElementById('calculationLogic');
+    logicDiv.classList.toggle('hidden');
 }
 
 // ==========================================

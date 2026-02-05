@@ -1088,3 +1088,40 @@ footer p {
     color: var(--color-primary);
     font-weight: 600;
 }
+
+/* 计算逻辑区域动画 */
+.calculation-logic {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #F8F9FA;
+    border-radius: 8px;
+    border-left: 4px solid #00A3E0;
+    transition: all 0.3s ease;
+}
+
+.calculation-logic.hidden {
+    display: none;
+}
+
+.logic-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #003B5C;
+    margin-bottom: 1rem;
+}
+
+.logic-content p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.logic-content .mt-2 {
+    margin-top: 1rem;
+}
+
+/* Info icon hover effect */
+.fa-info-circle:hover {
+    color: #003B5C;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}

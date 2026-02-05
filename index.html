@@ -160,7 +160,10 @@
                 
                 <!-- Calculator Results -->
                 <div id="calculatorResults" class="result-card hidden">
-                    <h3 class="result-title">投资回报计算输出</h3>
+                    <h3 class="result-title">
+                        投资回报计算输出
+                        <i class="fas fa-info-circle" onclick="toggleCalculationLogic()" style="cursor: pointer; color: #00A3E0; font-size: 1rem; margin-left: 0.5rem;" title="查看计算逻辑"></i>
+                    </h3>
                     <div class="result-grid">
                         <div class="result-item">
                             <div class="result-item-label">预计封顶期限</div>
@@ -180,7 +183,7 @@
                         备注：按日平息进行封顶计算
                     </p>
                     
-                    <div class="calculation-logic">
+                    <div id="calculationLogic" class="calculation-logic hidden">
                         <h4 class="logic-title">计算逻辑</h4>
                         <div class="logic-content">
                             <p><strong>核心公式：</strong></p>
