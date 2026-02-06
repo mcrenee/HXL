@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筛选评估测试 - 五大模块15维度</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .module {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .module h3 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+        }
+        .dimension {
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .score {
+            font-weight: 600;
+            color: #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-card">
+        <h1>🎯 项目筛选评估系统测试</h1>
+        <p style="color: #666; margin-bottom: 30px;">
+            新的评分系统：5大模块、15个维度、1-5分制
+        </p>
+        
+        <div class="module" style="border-left: 4px solid #667eea;">
+            <h3>📊 评分标准说明</h3>
+            <div style="line-height: 1.8;">
+                <strong>模块一：资产质量</strong>（权重30%）<br>
+                - 地段与需求强度、租约条件、房东质量<br><br>
+                
+                <strong>模块二：单位经济模型</strong>（权重25%）<br>
+                - 租金占收入比例、回本周期、净现金流能力<br><br>
+                
+                <strong>模块三：运营能力</strong>（权重20%）<br>
+                - 历史项目表现、扩张节奏健康度、成本控制能力<br><br>
+                
+                <strong>模块四：结构安全性</strong>（权重15%）<br>
+                - 租约控制权、现金流控制、投资保护条款<br><br>
+                
+                <strong>模块五：扩张能力</strong>（权重10%）<br>
+                - 可复制性、点位获取能力、抗风险能力
+            </div>
+        </div>
+        
+        <div class="module" style="border-left: 4px solid #10B981;">
+            <h3>✅ 投资建议分级</h3>
+            <div style="line-height: 1.8;">
+                • <strong style="color: #10B981;">Strong Invest</strong>：≥4.0分<br>
+                • <strong style="color: #3B82F6;">Invest</strong>：3.5-3.9分<br>
+                • <strong style="color: #F59E0B;">Cautious</strong>：3.0-3.4分<br>
+                • <strong style="color: #EF4444;">Do Not Invest</strong>：<3.0分
+            </div>
+        </div>
+        
+        <div class="module" style="border-left: 4px solid #F59E0B;">
+            <h3>📋 输出内容</h3>
+            <div style="line-height: 1.8;">
+                1. 总评分（1-5分，保留一位小数）<br>
+                2. 投资建议（Strong Invest/Invest/Cautious/Do Not Invest）<br>
+                3. 各模块评分详情<br>
+                4. 主要优势（最多3条，评分≥4分的维度）<br>
+                5. 主要风险（最多3条，评分≤2分的维度）<br>
+                6. 投资判断总结（3-5句话）
+            </div>
+        </div>
+        
+        <a href="/" class="link">
+            <button>→ 进入完整评估系统</button>
+        </a>
+        
+        <p style="margin-top: 30px; color: #666; font-size: 14px;">
+            💡 <strong>评估重点</strong>：优先考虑资产安全性和现金流安全性，而不是增长潜力
+        </p>
+    </div>
+</body>
+</html>
