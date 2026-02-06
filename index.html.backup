@@ -205,224 +205,106 @@
 
             <!-- Enterprise Screening -->
             <section id="screening" class="section">
-                <h2 class="section-title">项目筛选评估</h2>
-                <p class="section-description">基于五大模块、15个维度进行结构化评分（总分1-5分）</p>
+                <h2 class="section-title">被投企业筛选评估</h2>
+                <p class="section-description">基于标准进行企业评分（满分100分）</p>
                 
                 <div class="card">
-                    <h3 class="card-title">项目基本信息</h3>
+                    <h3 class="card-title">企业基本信息</h3>
                     <form id="screeningForm">
                         <div class="form-group">
-                            <label for="enterpriseName">项目/企业名称</label>
-                            <input type="text" id="enterpriseName" placeholder="请输入项目/企业名称">
+                            <label for="enterpriseName">企业名称</label>
+                            <input type="text" id="enterpriseName" placeholder="例如：肆瓦商业">
                         </div>
                         
-                        <!-- 模块一：资产质量（权重30%） -->
-                        <h4 class="mt-3 mb-2" style="color: #667eea; font-weight: 600;">
-                            <i class="fas fa-building" style="margin-right: 8px;"></i>
-                            模块一：资产质量（权重30%）
-                        </h4>
+                        <h4 class="mt-3 mb-2">行业通识标准（权重30%）</h4>
                         
                         <div class="form-group">
-                            <label for="dimension1">1. 地段与需求强度</label>
-                            <select id="dimension1">
+                            <label for="criteria1">1. 优质点位获取能力（满分15分）</label>
+                            <select id="criteria1">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 核心商圈/机场/高铁站，客流极稳定</option>
-                                <option value="4">4分 - 优质地段，客流稳定</option>
-                                <option value="3">3分 - 一般地段，客流一般</option>
-                                <option value="2">2分 - 较差地段，客流不稳定</option>
-                                <option value="1">1分 - 偏僻地段，客流极弱</option>
+                                <option value="15">优秀 - 15分</option>
+                                <option value="11">良好 - 11分</option>
+                                <option value="8">一般 - 8分</option>
+                                <option value="4">较弱 - 4分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension2">2. 租约条件</label>
-                            <select id="dimension2">
+                            <label for="criteria2">2. 收入与履约保障能力（满分10分）</label>
+                            <select id="criteria2">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 租金低于市场，剩余租期5年以上</option>
-                                <option value="4">4分 - 租金合理，剩余租期3-5年</option>
-                                <option value="3">3分 - 租金接近市场，剩余租期2-3年</option>
-                                <option value="2">2分 - 租金偏高，剩余租期1-2年</option>
-                                <option value="1">1分 - 租金过高，剩余租期不足1年</option>
+                                <option value="10">优秀 - 10分</option>
+                                <option value="7">良好 - 7分</option>
+                                <option value="5">一般 - 5分</option>
+                                <option value="2">较弱 - 2分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension3">3. 房东质量</label>
-                            <select id="dimension3">
+                            <label for="criteria3">3. 拓展与整合能力（满分5分）</label>
+                            <select id="criteria3">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 机场集团/国企/大型商业机构</option>
-                                <option value="4">4分 - 知名商业地产运营商</option>
-                                <option value="3">3分 - 一般商业物业</option>
-                                <option value="2">2分 - 小型物业/个人房东</option>
-                                <option value="1">1分 - 不稳定房东或产权不清晰</option>
+                                <option value="5">优秀 - 5分</option>
+                                <option value="4">良好 - 4分</option>
+                                <option value="3">一般 - 3分</option>
+                                <option value="1">较弱 - 1分</option>
                             </select>
                         </div>
                         
-                        <!-- 模块二：单位经济模型（权重25%） -->
-                        <h4 class="mt-3 mb-2" style="color: #10B981; font-weight: 600;">
-                            <i class="fas fa-chart-line" style="margin-right: 8px;"></i>
-                            模块二：单位经济模型（权重25%）
-                        </h4>
+                        <h4 class="mt-3 mb-2">分析报告专属标准（权重70%）</h4>
                         
                         <div class="form-group">
-                            <label for="dimension4">4. 租金占收入比例</label>
-                            <select id="dimension4">
+                            <label for="criteria4">4. 历史项目履约情况（满分20分）</label>
+                            <select id="criteria4">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 低于40%</option>
-                                <option value="4">4分 - 40%-50%</option>
-                                <option value="3">3分 - 50%-60%</option>
-                                <option value="2">2分 - 60%-70%</option>
-                                <option value="1">1分 - 高于70%</option>
+                                <option value="20">优秀 - 20分</option>
+                                <option value="15">良好 - 15分</option>
+                                <option value="10">一般 - 10分</option>
+                                <option value="5">较弱 - 5分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension5">5. 回本周期</label>
-                            <select id="dimension5">
+                            <label for="criteria5">5. AI技术应用能力（满分15分）</label>
+                            <select id="criteria5">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 12个月以内</option>
-                                <option value="4">4分 - 12-18个月</option>
-                                <option value="3">3分 - 18-24个月</option>
-                                <option value="2">2分 - 24-36个月</option>
-                                <option value="1">1分 - 超过36个月</option>
+                                <option value="15">优秀 - 15分</option>
+                                <option value="11">良好 - 11分</option>
+                                <option value="8">一般 - 8分</option>
+                                <option value="4">较弱 - 4分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension6">6. 净现金流能力</label>
-                            <select id="dimension6">
+                            <label for="criteria6">6. 品牌资源整合能力（满分15分）</label>
+                            <select id="criteria6">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 稳定正现金流，月均10万+</option>
-                                <option value="4">4分 - 稳定正现金流，月均5-10万</option>
-                                <option value="3">3分 - 盈亏平衡，偶有盈余</option>
-                                <option value="2">2分 - 勉强维持，现金流紧张</option>
-                                <option value="1">1分 - 持续亏损或负现金流</option>
-                            </select>
-                        </div>
-                        
-                        <!-- 模块三：运营能力（权重20%） -->
-                        <h4 class="mt-3 mb-2" style="color: #F59E0B; font-weight: 600;">
-                            <i class="fas fa-users-cog" style="margin-right: 8px;"></i>
-                            模块三：运营能力（权重20%）
-                        </h4>
-                        
-                        <div class="form-group">
-                            <label for="dimension7">7. 历史项目表现</label>
-                            <select id="dimension7">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 5个以上成功项目，持续盈利</option>
-                                <option value="4">4分 - 3-5个成功项目</option>
-                                <option value="3">3分 - 1-2个项目，表现一般</option>
-                                <option value="2">2分 - 首次运营或历史不佳</option>
-                                <option value="1">1分 - 历史项目失败或严重违约</option>
+                                <option value="15">优秀 - 15分</option>
+                                <option value="11">良好 - 11分</option>
+                                <option value="8">一般 - 8分</option>
+                                <option value="4">较弱 - 4分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension8">8. 扩张节奏健康度</label>
-                            <select id="dimension8">
+                            <label for="criteria7">7. 资金使用效率（满分10分）</label>
+                            <select id="criteria7">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 稳健扩张，现金流自给自足</option>
-                                <option value="4">4分 - 合理扩张，少量融资</option>
-                                <option value="3">3分 - 中等扩张速度</option>
-                                <option value="2">2分 - 激进扩张，依赖融资</option>
-                                <option value="1">1分 - 过度扩张，资金链紧张</option>
+                                <option value="10">优秀 - 10分</option>
+                                <option value="7">良好 - 7分</option>
+                                <option value="5">一般 - 5分</option>
+                                <option value="2">较弱 - 2分</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="dimension9">9. 成本控制能力</label>
-                            <select id="dimension9">
+                            <label for="criteria8">8. 团队专业度（满分10分）</label>
+                            <select id="criteria8">
                                 <option value="">请选择</option>
-                                <option value="5">5分 - 极强成本控制，运营效率高</option>
-                                <option value="4">4分 - 较强成本控制</option>
-                                <option value="3">3分 - 一般成本控制</option>
-                                <option value="2">2分 - 成本控制较弱</option>
-                                <option value="1">1分 - 成本失控，浪费严重</option>
-                            </select>
-                        </div>
-                        
-                        <!-- 模块四：结构安全性（权重15%） -->
-                        <h4 class="mt-3 mb-2" style="color: #EF4444; font-weight: 600;">
-                            <i class="fas fa-shield-alt" style="margin-right: 8px;"></i>
-                            模块四：结构安全性（权重15%）
-                        </h4>
-                        
-                        <div class="form-group">
-                            <label for="dimension10">10. 租约控制权</label>
-                            <select id="dimension10">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 投资人直接控制租约</option>
-                                <option value="4">4分 - SPV控制，投资人有否决权</option>
-                                <option value="3">3分 - 间接控制，有协议保障</option>
-                                <option value="2">2分 - 运营方控制，保障较弱</option>
-                                <option value="1">1分 - 完全无控制权</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dimension11">11. 现金流控制</label>
-                            <select id="dimension11">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 收入进入投资人监管账户</option>
-                                <option value="4">4分 - 第三方监管账户</option>
-                                <option value="3">3分 - 可实时查看但无监管</option>
-                                <option value="2">2分 - 定期报告，无监管</option>
-                                <option value="1">1分 - 完全无法监控</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dimension12">12. 投资保护条款</label>
-                            <select id="dimension12">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 优先分配权+接管权+回购权</option>
-                                <option value="4">4分 - 优先分配权+接管权</option>
-                                <option value="3">3分 - 仅有优先分配权</option>
-                                <option value="2">2分 - 保护条款较弱</option>
-                                <option value="1">1分 - 无有效保护条款</option>
-                            </select>
-                        </div>
-                        
-                        <!-- 模块五：扩张能力（权重10%） -->
-                        <h4 class="mt-3 mb-2" style="color: #8B5CF6; font-weight: 600;">
-                            <i class="fas fa-rocket" style="margin-right: 8px;"></i>
-                            模块五：扩张能力（权重10%）
-                        </h4>
-                        
-                        <div class="form-group">
-                            <label for="dimension13">13. 可复制性</label>
-                            <select id="dimension13">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 高度标准化，可快速复制</option>
-                                <option value="4">4分 - 较标准化，可复制</option>
-                                <option value="3">3分 - 部分标准化</option>
-                                <option value="2">2分 - 难以复制</option>
-                                <option value="1">1分 - 完全依赖特定资源</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dimension14">14. 点位获取能力</label>
-                            <select id="dimension14">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 强大点位获取能力和资源</option>
-                                <option value="4">4分 - 较强点位获取能力</option>
-                                <option value="3">3分 - 一般点位获取能力</option>
-                                <option value="2">2分 - 点位获取困难</option>
-                                <option value="1">1分 - 无点位获取能力</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dimension15">15. 抗风险能力</label>
-                            <select id="dimension15">
-                                <option value="">请选择</option>
-                                <option value="5">5分 - 收入下降50%仍可盈利</option>
-                                <option value="4">4分 - 收入下降30%可维持</option>
-                                <option value="3">3分 - 收入下降20%可维持</option>
-                                <option value="2">2分 - 收入下降10%即困难</option>
-                                <option value="1">1分 - 抗风险能力极弱</option>
+                                <option value="10">优秀 - 10分</option>
+                                <option value="7">良好 - 7分</option>
+                                <option value="5">一般 - 5分</option>
+                                <option value="2">较弱 - 2分</option>
                             </select>
                         </div>
                         
@@ -437,35 +319,20 @@
                 <div id="screeningResults" class="result-card hidden">
                     <div class="score-display">
                         <div class="score-circle">
-                            <div class="score-number" id="totalScore">0.0</div>
-                            <div class="score-max">/5.0</div>
+                            <div class="score-number" id="totalScore">0</div>
+                            <div class="score-max">/100</div>
                         </div>
                         <div class="score-rating" id="scoreRating">待评估</div>
                     </div>
                     
                     <h3 class="result-title">评估结果</h3>
                     <div id="scoreRecommendation" class="report-content">
-                        <p>请完成所有评分项目后点击"计算评分"查看评估结果</p>
+                        请先完成评分
                     </div>
                     
-                    <h3 class="result-title">各模块评分</h3>
-                    <div id="moduleScores" class="report-content">
-                        <!-- 模块评分将在这里显示 -->
-                    </div>
-                    
-                    <h3 class="result-title">主要优势</h3>
-                    <div id="projectStrengths" class="report-content">
-                        <!-- 优势将在这里显示 -->
-                    </div>
-                    
-                    <h3 class="result-title">主要风险</h3>
-                    <div id="projectRisks" class="report-content">
-                        <!-- 风险将在这里显示 -->
-                    </div>
-                    
-                    <h3 class="result-title">投资判断总结</h3>
-                    <div id="investmentSummary" class="report-content">
-                        <!-- 总结将在这里显示 -->
+                    <h3 class="result-title mt-3">风控要点</h3>
+                    <div id="riskControl" class="report-content">
+                        请先完成评分
                     </div>
                 </div>
             </section>

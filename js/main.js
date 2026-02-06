@@ -195,82 +195,185 @@ function toggleCalculationLogic() {
 function calculateScore() {
     const enterpriseName = document.getElementById('enterpriseName').value;
     if (!enterpriseName) {
-        alert('请输入企业名称');
+        alert('请输入项目/企业名称');
         return;
     }
     
     // 自动填充到协议设计的乙方字段
     document.getElementById('partyB').value = enterpriseName;
     
-    // 收集评分
-    let totalScore = 0;
+    // 收集15个维度的评分
+    let dimensions = [];
     let hasEmpty = false;
     
-    for (let i = 1; i <= 8; i++) {
-        const value = document.getElementById(`criteria${i}`).value;
+    for (let i = 1; i <= 15; i++) {
+        const value = document.getElementById(`dimension${i}`).value;
         if (value === '') {
             hasEmpty = true;
             break;
         }
-        totalScore += parseInt(value);
+        dimensions.push(parseInt(value));
     }
     
     if (hasEmpty) {
-        alert('请完成所有评分项');
+        alert('请完成所有15个维度的评分');
         return;
     }
     
-    // 确定评级和建议
-    let rating, ratingClass, recommendation, riskControl;
+    // 计算各模块平均分
+    // 模块一：资产质量（维度1-3）
+    const module1Score = (dimensions[0] + dimensions[1] + dimensions[2]) / 3;
     
-    if (totalScore >= 92) {  // 92-100分
-        rating = '优秀';
+    // 模块二：单位经济模型（维度4-6）
+    const module2Score = (dimensions[3] + dimensions[4] + dimensions[5]) / 3;
+    
+    // 模块三：运营能力（维度7-9）
+    const module3Score = (dimensions[6] + dimensions[7] + dimensions[8]) / 3;
+    
+    // 模块四：结构安全性（维度10-12）
+    const module4Score = (dimensions[9] + dimensions[10] + dimensions[11]) / 3;
+    
+    // 模块五：扩张能力（维度13-15）
+    const module5Score = (dimensions[12] + dimensions[13] + dimensions[14]) / 3;
+    
+    // 计算加权总分
+    const totalScore = (
+        module1Score * 0.30 +  // 30%
+        module2Score * 0.25 +  // 25%
+        module3Score * 0.20 +  // 20%
+        module4Score * 0.15 +  // 15%
+        module5Score * 0.10    // 10%
+    );
+    
+    // 确定投资建议
+    let rating, ratingClass, recommendation;
+    
+    if (totalScore >= 4.0) {
+        rating = 'Strong Invest';
         ratingClass = 'excellent';
-        recommendation = `<strong>${enterpriseName}</strong>综合评分<strong class="text-primary">${totalScore}分</strong>，属于<strong class="text-primary">优秀级别</strong>。<br><br>
-            <strong>投资建议：强烈推荐投资</strong><br>
-            建议投资规模：400-600万元<br>
-            建议年化收益：18%<br>
-            建议分成比例：35%<br>
-            联营期限：18个月`;
-        riskControl = `${enterpriseName}具备优质点位获取能力，历史履约记录良好，AI技术应用成熟，品牌资源丰富。建议重点关注：1）招商进度按时完成；2）每月数据及时报送；3）分成款项准时支付。`;
-    } else if (totalScore >= 77) {  // 77-91分
-        rating = '良好';
+        recommendation = '强烈推荐投资';
+    } else if (totalScore >= 3.5) {
+        rating = 'Invest';
         ratingClass = 'good';
-        recommendation = `<strong>${enterpriseName}</strong>综合评分<strong class="text-primary">${totalScore}分</strong>，属于<strong class="text-primary">良好级别</strong>。<br><br>
-            <strong>投资建议：可以投资</strong><br>
-            建议投资规模：200-400万元<br>
-            建议年化收益：16-18%<br>
-            建议分成比例：40%<br>
-            联营期限：12-15个月`;
-        riskControl = `${enterpriseName}整体能力较强，但仍有提升空间。建议重点关注：1）点位资源质量；2）品牌招商能力；3）运营数据真实性；4）团队稳定性。建议增加月度运营审核频次。`;
-    } else if (totalScore >= 62) {  // 62-76分
-        rating = '一般';
+        recommendation = '推荐投资';
+    } else if (totalScore >= 3.0) {
+        rating = 'Cautious';
         ratingClass = 'fair';
-        recommendation = `<strong>${enterpriseName}</strong>综合评分<strong class="text-primary">${totalScore}分</strong>，属于<strong class="text-primary">一般级别</strong>。<br><br>
-            <strong>投资建议：谨慎投资</strong><br>
-            建议投资规模：100-200万元<br>
-            建议年化收益：14-16%<br>
-            建议分成比例：50%<br>
-            联营期限：6-12个月`;
-        riskControl = `${enterpriseName}存在较多不确定因素。建议重点关注：1）点位资源是否稳定；2）品牌招商是否达标；3）收入是否达到预期；4）履约能力是否可靠。建议设置更严格的退出条款和风控措施。`;
-    } else {  // 0-61分
-        rating = '不推荐';
+        recommendation = '谨慎投资';
+    } else {
+        rating = 'Do Not Invest';
         ratingClass = 'poor';
-        recommendation = `<strong>${enterpriseName}</strong>综合评分<strong class="text-primary">${totalScore}分</strong>，低于投资标准。<br><br>
-            <strong>投资建议：不建议投资</strong><br>
-            综合能力不足，风险较高，建议观望或要求企业提升能力后再评估。`;
-        riskControl = `${enterpriseName}综合能力较弱，不符合当前投资标准。主要风险：点位资源质量差、运营能力不足、品牌资源匮乏、团队经验不足。建议暂不投资，待企业提升能力后再行评估。`;
+        recommendation = '不建议投资';
     }
     
+    // 分析主要优势（取最高的3个维度）
+    const dimensionNames = [
+        '地段与需求强度', '租约条件', '房东质量',
+        '租金占收入比例', '回本周期', '净现金流能力',
+        '历史项目表现', '扩张节奏健康度', '成本控制能力',
+        '租约控制权', '现金流控制', '投资保护条款',
+        '可复制性', '点位获取能力', '抗风险能力'
+    ];
+    
+    const dimensionsWithNames = dimensions.map((score, index) => ({
+        name: dimensionNames[index],
+        score: score
+    }));
+    
+    const sortedDimensions = [...dimensionsWithNames].sort((a, b) => b.score - a.score);
+    const strengths = sortedDimensions.slice(0, 3).filter(d => d.score >= 4);
+    const risks = sortedDimensions.slice(-3).reverse().filter(d => d.score <= 2);
+    
+    // 生成优势描述
+    let strengthsHTML = '';
+    if (strengths.length > 0) {
+        strengthsHTML = '<ul style="margin: 0; padding-left: 1.5rem;">';
+        strengths.forEach(s => {
+            strengthsHTML += `<li><strong>${s.name}</strong>：${s.score}分 - 表现优异</li>`;
+        });
+        strengthsHTML += '</ul>';
+    } else {
+        strengthsHTML = '<p>暂无明显优势项（无4分以上维度）</p>';
+    }
+    
+    // 生成风险描述
+    let risksHTML = '';
+    if (risks.length > 0) {
+        risksHTML = '<ul style="margin: 0; padding-left: 1.5rem;">';
+        risks.forEach(r => {
+            risksHTML += `<li><strong>${r.name}</strong>：${r.score}分 - 存在较高风险</li>`;
+        });
+        risksHTML += '</ul>';
+    } else {
+        risksHTML = '<p>暂无明显风险项（无2分以下维度）</p>';
+    }
+    
+    // 生成投资判断总结
+    let summary = `<p><strong>${enterpriseName}</strong>的综合评分为<strong style="color: #667eea; font-size: 1.2em;">${totalScore.toFixed(1)}</strong>分（满分5.0分），投资建议为<strong style="color: ${totalScore >= 4.0 ? '#10B981' : totalScore >= 3.5 ? '#3B82F6' : totalScore >= 3.0 ? '#F59E0B' : '#EF4444'};">${rating}</strong>。</p>`;
+    
+    summary += '<p>';
+    if (totalScore >= 4.0) {
+        summary += `该项目具备极强的资产安全性和现金流能力，优先考虑投资。资产质量${module1Score >= 4 ? '优秀' : '良好'}，经济模型${module2Score >= 4 ? '健康' : '稳定'}，结构安全性${module4Score >= 4 ? '极佳' : '较好'}。`;
+    } else if (totalScore >= 3.5) {
+        summary += `该项目整体表现良好，建议投资。资产质量和现金流能力${module1Score >= 3.5 && module2Score >= 3.5 ? '稳定' : '需关注'}，但需要重点关注${module4Score < 3.5 ? '结构安全性' : module3Score < 3.5 ? '运营能力' : '扩张能力'}。`;
+    } else if (totalScore >= 3.0) {
+        summary += `该项目存在一定风险，需谨慎评估。主要关注点：${module4Score < 3.0 ? '结构安全性较弱' : ''}${module2Score < 3.0 ? '现金流能力不足' : ''}${module1Score < 3.0 ? '资产质量一般' : ''}。建议加强风控措施后再考虑投资。`;
+    } else {
+        summary += `该项目不符合投资标准，不建议投资。核心问题：${module4Score < 2.5 ? '结构安全性严重不足' : ''}${module2Score < 2.5 ? '经济模型不健康' : ''}${module1Score < 2.5 ? '资产质量较差' : ''}。建议等待项目改善后重新评估。`;
+    }
+    summary += '</p>';
+    
+    summary += '<p>';
+    summary += `从投资保护角度，${module4Score >= 4 ? '项目具备完善的投资保护机制' : module4Score >= 3 ? '项目有一定的投资保护' : '投资保护机制较弱'}。从现金流角度，${module2Score >= 4 ? '项目能稳定产生正现金流' : module2Score >= 3 ? '项目现金流基本平衡' : '项目现金流存在较大压力'}。`;
+    summary += '</p>';
+    
     // 更新显示
-    document.getElementById('totalScore').textContent = totalScore;
+    document.getElementById('totalScore').textContent = totalScore.toFixed(1);
     document.getElementById('scoreRating').textContent = rating;
     document.getElementById('scoreRating').className = `score-rating ${ratingClass}`;
-    document.getElementById('scoreRecommendation').innerHTML = recommendation;
-    document.getElementById('riskControl').innerHTML = riskControl;
+    
+    // 更新模块评分
+    const moduleScoresHTML = `
+        <div style="display: grid; gap: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #667eea;">
+                <span><strong>模块一：资产质量</strong>（权重30%）</span>
+                <span style="color: #667eea; font-weight: 600; font-size: 1.1em;">${module1Score.toFixed(2)}分</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #10B981;">
+                <span><strong>模块二：单位经济模型</strong>（权重25%）</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 1.1em;">${module2Score.toFixed(2)}分</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #F59E0B;">
+                <span><strong>模块三：运营能力</strong>（权重20%）</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 1.1em;">${module3Score.toFixed(2)}分</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #EF4444;">
+                <span><strong>模块四：结构安全性</strong>（权重15%）</span>
+                <span style="color: #EF4444; font-weight: 600; font-size: 1.1em;">${module4Score.toFixed(2)}分</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #8B5CF6;">
+                <span><strong>模块五：扩张能力</strong>（权重10%）</span>
+                <span style="color: #8B5CF6; font-weight: 600; font-size: 1.1em;">${module5Score.toFixed(2)}分</span>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('scoreRecommendation').innerHTML = `<p style="font-size: 1.1em;"><strong>投资建议：${recommendation}</strong></p>`;
+    document.getElementById('moduleScores').innerHTML = moduleScoresHTML;
+    document.getElementById('projectStrengths').innerHTML = strengthsHTML;
+    document.getElementById('projectRisks').innerHTML = risksHTML;
+    document.getElementById('investmentSummary').innerHTML = summary;
     
     document.getElementById('screeningResults').classList.remove('hidden');
     document.getElementById('screeningResults').scrollIntoView({ behavior: 'smooth' });
+    
+    console.log('✅ 评分计算完成');
+    console.log('模块一（资产质量30%）:', module1Score.toFixed(2));
+    console.log('模块二（单位经济模型25%）:', module2Score.toFixed(2));
+    console.log('模块三（运营能力20%）:', module3Score.toFixed(2));
+    console.log('模块四（结构安全性15%）:', module4Score.toFixed(2));
+    console.log('模块五（扩张能力10%）:', module5Score.toFixed(2));
+    console.log('加权总分:', totalScore.toFixed(1));
 }
 
 function resetScreening() {
