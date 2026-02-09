@@ -268,11 +268,11 @@ function calculateScore() {
     
     // 分析主要优势（取最高的3个维度）
     const dimensionNames = [
-        '地段与需求强度', '租约条件', '房东质量',
-        '租金成本率', '回本周期', '净现金流能力',
-        '历史项目表现', '扩张节奏健康度', '品牌资源能力',
-        '租约控制权', '现金流控制', '投资保护条款',
-        '可复制性', '点位获取能力', '抗风险能力'
+        '地段与品牌客群匹配度', '租约条件与加盟周期匹配度', '物业硬件与品牌需求适配性',
+        '综合成本率', '回本周期', '净现金流稳定性',
+        '历史加盟门店表现', '扩张节奏健康度', '品牌资源赋能能力',
+        '租约控制权与风险隔离', '现金流监控与分成机制', '投资保护与退出条款',
+        '模式可复制性', '点位获取能力', '抗风险能力'
     ];
     
     const dimensionsWithNames = dimensions.map((score, index) => ({
@@ -336,23 +336,23 @@ function calculateScore() {
     const moduleScoresHTML = `
         <div style="display: grid; gap: 0.75rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #667eea;">
-                <span><strong>模块一：资产质量</strong>（权重30%）</span>
+                <span><strong>模块一：门店资产与品牌适配性</strong>（权重30%）</span>
                 <span style="color: #667eea; font-weight: 600; font-size: 1.1em;">${module1Score.toFixed(2)}分</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #10B981;">
-                <span><strong>模块二：单位经济模型</strong>（权重25%）</span>
+                <span><strong>模块二：单店单位经济模型</strong>（权重25%）</span>
                 <span style="color: #10B981; font-weight: 600; font-size: 1.1em;">${module2Score.toFixed(2)}分</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #F59E0B;">
-                <span><strong>模块三：运营能力</strong>（权重20%）</span>
+                <span><strong>模块三：品牌运营支持能力</strong>（权重20%）</span>
                 <span style="color: #F59E0B; font-weight: 600; font-size: 1.1em;">${module3Score.toFixed(2)}分</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #EF4444;">
-                <span><strong>模块四：结构安全性</strong>（权重15%）</span>
+                <span><strong>模块四：投资结构安全性</strong>（权重15%）</span>
                 <span style="color: #EF4444; font-weight: 600; font-size: 1.1em;">${module4Score.toFixed(2)}分</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: #F8F9FA; border-radius: 8px; border-left: 4px solid #8B5CF6;">
-                <span><strong>模块五：扩张能力</strong>（权重10%）</span>
+                <span><strong>模块五：品牌扩张与抗风险能力</strong>（权重10%）</span>
                 <span style="color: #8B5CF6; font-weight: 600; font-size: 1.1em;">${module5Score.toFixed(2)}分</span>
             </div>
         </div>
@@ -368,11 +368,11 @@ function calculateScore() {
     document.getElementById('screeningResults').scrollIntoView({ behavior: 'smooth' });
     
     console.log('✅ 评分计算完成');
-    console.log('模块一（资产质量30%）:', module1Score.toFixed(2));
-    console.log('模块二（单位经济模型25%）:', module2Score.toFixed(2));
-    console.log('模块三（运营能力20%）:', module3Score.toFixed(2));
-    console.log('模块四（结构安全性15%）:', module4Score.toFixed(2));
-    console.log('模块五（扩张能力10%）:', module5Score.toFixed(2));
+    console.log('模块一（门店资产与品牌适配性30%）:', module1Score.toFixed(2));
+    console.log('模块二（单店单位经济模型25%）:', module2Score.toFixed(2));
+    console.log('模块三（品牌运营支持能力20%）:', module3Score.toFixed(2));
+    console.log('模块四（投资结构安全性15%）:', module4Score.toFixed(2));
+    console.log('模块五（品牌扩张与抗风险能力10%）:', module5Score.toFixed(2));
     console.log('加权总分:', totalScore.toFixed(1));
 }
 
